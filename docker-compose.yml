@@ -1,10 +1,11 @@
-version: '2'
+version: "2"
 
 services:
+
   proxy:
     image: nginx
     ports:
-      - '80:80'
+      - "80:80"
     depends_on:
       - api
     volumes:
@@ -21,16 +22,16 @@ services:
       - backend
 
   mongo:
-   image: mongo
-   restart: always
-   volumes:
+    image: mongo
+    restart: always
+    volumes:
     - db-volume:/data/db
     networks:
       - backend
 
 volumes:
   db-volume:
-
+    driver: local
 networks:
   backend:
     external: true
