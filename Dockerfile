@@ -13,4 +13,6 @@ WORKDIR ${SERVER_HOME}
 
 RUN npm config set progress=false && npm install -g pm2 && npm install
 
+EXPOSE 8181
+
 CMD ["pm2","start"]

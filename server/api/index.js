@@ -1,11 +1,12 @@
 import { Router } from 'express';
-import facets from './facets';
+var controller = require('./participantes');
 
 export default function() {
 	var api = Router();
 
-	// mount the facets resource
-	api.use('/facets', facets);
+    api.get('/participantes', controller.showAll);
+    api.get('/participantes/:id', controller.showOne);
+    api.post('/participantes/',controller.create);
 
 	// perhaps expose some API metadata at the root
 	api.get('/', (req, res) => {

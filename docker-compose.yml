@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+  proxy:
+    image: nginx
+    ports:
+      - '80:80'
+    depends_on:
+      - api
+    volumes:
+      - ./nginx:/etc/nginx/conf.d/
+    network:
+      - backend
+
+  api:
+    image: parunruaivo/api-presentation
+    restart: always
+    depends_on:
+      - mongo
+    network:
+      - backend
+
+  mongo:
+   image: mongo
+   restart: always
+   volumes:
+    - db-volume:/data/db
+    network:
+      - backend
+
+volumes:
+  db-volume:
+
+networks:
+  backend:
+    external: true
+
+

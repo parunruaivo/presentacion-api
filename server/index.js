@@ -2,9 +2,11 @@ import http from 'http';
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import db from './db';
 import middleware from './middleware';
+var mongoose = require('mongoose');
 import api from './api';
+
+mongoose.connect('mongodb://mongo/presentacion');
 
 var app = express();
 app.server = http.createServer(app);
@@ -27,7 +29,7 @@ db( λ => {
 	// api router
 	app.use('/api', api());
 
-	app.server.listen(process.env.PORT || 8080);
+	app.server.listen(process.env.PORT || 8181);
 
 	console.log(`Started on port ${app.server.address().port}`);
 });
