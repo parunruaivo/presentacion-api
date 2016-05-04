@@ -9,7 +9,7 @@ services:
       - api
     volumes:
       - ./nginx:/etc/nginx/conf.d/
-    network:
+    networks:
       - backend
 
   api:
@@ -17,7 +17,7 @@ services:
     restart: always
     depends_on:
       - mongo
-    network:
+    networks:
       - backend
 
   mongo:
@@ -25,7 +25,7 @@ services:
    restart: always
    volumes:
     - db-volume:/data/db
-    network:
+    networks:
       - backend
 
 volumes:
