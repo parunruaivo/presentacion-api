@@ -2,6 +2,7 @@ import Participante from '../models/participantes';
 
 exports.showAll = function (req, res) {
 	Participante.find({})
+		.select('-__v')
 		.exec(function (err, participantes) {
 			if (err) return handleError(res, err);
 			res.status(200).json(participantes);
@@ -19,6 +20,7 @@ exports.create = function (req, res) {
 exports.showOne = function (req, res, next) {
 	Participante
 		.findOne({_id: req.params.id})
+		.select('-__v')
 		.exec(function (err, participante) {
 			if (err) return next(err);
 			if (!participante) return res.status(401).end();

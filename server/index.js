@@ -1,5 +1,8 @@
 import http from 'http';
 import express from 'express';
+import compression from 'compression';
+import methodOverride from 'method-override';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import middleware from './middleware';
@@ -11,27 +14,18 @@ mongoose.connect('mongodb://mongo/presentacion');
 var app = express();
 app.server = http.createServer(app);
 
-// 3rd party middleware
-app.use(cors({
-	exposedHeaders: ['Link']
-}));
+app.use(compression());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use(methodOverride('X-HTTP-Method-Override'));
+app.use(cookieParser());
 
-app.use(bodyParser.json({
-	limit : '100kb'
-}));
+// api router
+app.use('/api', api());
 
-// connect to db
-db( λ => {
+app.server.listen(8181, '0.0.0.0');
 
-	// internal middleware
-	app.use(middleware());
+console.log(`Started on port 8181`);
 
-	// api router
-	app.use('/api', api());
-
-	app.server.listen(process.env.PORT || 8181);
-
-	console.log(`Started on port ${app.server.address().port}`);
-});
 
 export default app;

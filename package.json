@@ -16,9 +16,11 @@
   "dependencies": {
     "babel": "^5.8.21",
     "body-parser": "^1.13.3",
-    "compression": "^1.5.2",
+    "compression": "^1.6.1",
+    "cookie-parser": "^1.4.1",
     "cors": "^2.7.1",
     "express": "^4.13.3",
+    "method-override": "^2.3.5",
     "mongoose": "4.4.14"
   },
   "bugs": {

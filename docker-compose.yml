@@ -3,19 +3,18 @@ version: "2"
 services:
 
   proxy:
-    image: nginx
+    build: ./nginx
+    container_name: proxy
     ports:
       - "80:80"
     depends_on:
       - api
-    volumes:
-      - ./nginx:/etc/nginx/conf.d/
     networks:
       - backend
 
   api:
     image: parunruaivo/api-presentation
-    restart: always
+    container_name: api
     depends_on:
       - mongo
     networks:
@@ -23,6 +22,7 @@ services:
 
   mongo:
     image: mongo
+    container_name: mongo
     restart: always
     volumes:
     - db-volume:/data/db
